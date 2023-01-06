@@ -33,6 +33,7 @@ jobs:
         extra-specs: |
           sel(osx): clang
           sel(linux): gcc
+          sel(osx): libarchive
           conda-forge::go=${{ matrix.go }}
           tiledb
         channels: tiledb/label/nightlies, conda-forge
