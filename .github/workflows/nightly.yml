@@ -1,0 +1,42 @@
+name: TileDB-Go with nightly libtiledb
+
+on:
+  push:
+    paths:
+      - '.github/workflows/nightly.yml'
+      - '.github/scripts/nightly/**'
+  schedule:
+    - cron: "0 4 * * *" # Every night at 4 AM UTC (11 PM EST; 12 AM EDT)
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    name: nightly-${{ matrix.os }}-go-${{ matrix.go }}
+    strategy:
+      fail-fast: false
+      matrix:
+        go: ["1.18"]
+        os: ["macos-11", "ubuntu-20.04"]
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+
+    - uses: actions/checkout@v3
+
+    - name: Install Conda environment with go and nightly libtiledb
+      uses: mamba-org/provision-with-micromamba@main
+      with:
+        environment-file: false
+        environment-name: nightly
+        extra-specs: |
+          conda-forge::go=${{ matrix.go }}
+          tiledb
+        channels: tiledb/label/nightlies, conda-forge
+
+    - name: Install dependencies
+      run: go get -t .
+
+    - name: Test TileDB-Go
+      run: go test -v ./...
