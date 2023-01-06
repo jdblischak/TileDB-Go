@@ -44,6 +44,17 @@ jobs:
       run: |
         export CPATH=$CONDA_PREFIX/include
         export LIBRARY_PATH=$CONDA_PREFIX/lib
-        export LD_LIBRARY_PATH=$CONDA_PREFIX/lib
+
+        OS=$(uname)
+        if [[ "$OS" == "Linux" ]]
+        then
+          export LD_LIBRARY_PATH=$CONDA_PREFIX/lib
+        elif [[ "$OS" == "Darwin" ]]
+        then
+          export DYLD_LIBRARY_PATH=$CONDA_PREFIX/lib
+        else
+          echo "Unrecognized OS: $OS"
+          exit 1
+        fi
 
         go test -v ./...
