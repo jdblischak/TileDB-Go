@@ -52,7 +52,9 @@ jobs:
           export LD_LIBRARY_PATH=$CONDA_PREFIX/lib
         elif [[ "$OS" == "Darwin" ]]
         then
-          export PATH=$CONDA_PREFIX/lib:$PATH
+          export PATH=$CONDA_PREFIX/bin:$PATH
+          export DYLD_FALLBACK_LIBRARY_PATH=$CONDA_PREFIX/lib
+
         else
           echo "Unrecognized OS: $OS"
           exit 1
