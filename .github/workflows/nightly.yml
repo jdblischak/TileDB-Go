@@ -24,11 +24,6 @@ jobs:
     steps:
 
     - uses: actions/checkout@v3
-    
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: ${{ matrix.go }}
 
     - name: Install Conda environment with go and nightly libtiledb
       uses: mamba-org/provision-with-micromamba@main
@@ -41,6 +36,11 @@ jobs:
           sel(osx): libarchive
           tiledb
         channels: tiledb/label/nightlies, conda-forge
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{ matrix.go }}
 
     - name: Install dependencies
       run: go get -t .
