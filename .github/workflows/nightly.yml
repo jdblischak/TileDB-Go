@@ -37,11 +37,6 @@ jobs:
           tiledb
         channels: tiledb/label/nightlies, conda-forge
 
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: ${{ matrix.go }}
-
     - name: Install dependencies
       run: go get -t .
 
