@@ -24,6 +24,9 @@ jobs:
     steps:
 
     - uses: actions/checkout@v3
+      with:
+        repository: 'TileDB-Inc/TileDB-Go'
+        ref: 'stefannaglee/sc-24303/tiledb-go-build-fails-after-3733'
 
     - name: Install Conda environment with go and nightly libtiledb
       uses: mamba-org/provision-with-micromamba@main
