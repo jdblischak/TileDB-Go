@@ -47,45 +47,6 @@ jobs:
 
         go test -v ./...
 
-  Macos_Test:
-    runs-on: macos-11
-    strategy:
-      matrix:
-        # Will be checking following versions
-        go: ["1.18"]
-    steps:
-    # Checks out repository
-    - uses: actions/checkout@v2
-
-    # Downloads TileDB-Core from release assets and install
-    - name: Run TileDB install script
-      run: ./.github/scripts/install_tiledb_macos.sh
-      shell: bash
-
-    # Following action sets up Go and uses the strategy matrix to test on
-    # specific versions
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: ${{ matrix.go }}
-
-    - name: Cache dependencies
-      uses: actions/cache@v2
-      with:
-        path: |
-          ~/Library/Caches/go-build
-          ~/go/pkg/mod
-        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-        restore-keys: |
-          ${{ runner.os }}-go-
-
-    - name: Install dependencies
-      run: go get -t .
-
-    # Tests TileDB-Go
-    - name: Test TileDB-Go
-      run: go test -v ./...
-
   macos:
     runs-on: macos-11
     needs: ubuntu
@@ -106,7 +67,7 @@ jobs:
     #     sudo make -C tiledb install
 
     - name: Run TileDB install script
-      run: ./.github/scripts/install_tiledb_macos.sh
+      run: ./.github/scripts/install_tiledb_source_macos.sh
       shell: bash
 
     - name: Set up Go
