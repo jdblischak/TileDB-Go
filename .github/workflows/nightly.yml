@@ -67,7 +67,7 @@ jobs:
     #     sudo make -C tiledb install
 
     - name: Run TileDB install script
-      run: ./.github/scripts/install_tiledb_source_macos.sh
+      run: ./.github/scripts/nightly/install_tiledb_source_macos.sh
       shell: bash
 
     - name: Set up Go
