@@ -23,7 +23,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         repository: 'TileDB-Inc/TileDB-Go'
-        ref: 'stefannaglee/sc-24303/tiledb-go-build-fails-after-3733'
+        ref: 'sa/sc-24303/not-use-deprecated-tiledb-methods'
 
     - name: Install Conda environment with go and nightly libtiledb
       uses: mamba-org/provision-with-micromamba@main
@@ -55,7 +55,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         repository: 'TileDB-Inc/TileDB-Go'
-        ref: 'stefannaglee/sc-24303/tiledb-go-build-fails-after-3733'
+        ref: 'sa/sc-24303/not-use-deprecated-tiledb-methods'
 
     - name: Install nightly TileDB from source
       run: |
