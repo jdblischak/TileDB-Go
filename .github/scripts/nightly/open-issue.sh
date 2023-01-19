@@ -11,7 +11,7 @@ then
 fi
 
 theDate="$(date '+%A (%Y-%m-%d)')"
-theMessage="Scheduled build failed on $theDate in run [$GITHUB_RUN_ID]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)"
+theMessage="Nightly build failed on $theDate in run [$GITHUB_RUN_ID]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)"
 
 existing=$(gh issue list \
   --label "nightly-failure" \
@@ -24,9 +24,10 @@ if [[ -z "$existing" ]]
 then
   # open new issue
   gh issue create \
+    --assignee Shelnutt2,ihnorton \
     --body "$theMessage" \
     --label "nightly-failure" \
-    --title "Scheduled build failed on $theDate"
+    --title "Nightly build failed on $theDate"
 else
   # comment on existing issue
   gh issue comment "$existing" \
